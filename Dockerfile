@@ -1,4 +1,4 @@
-FROM roboxes/rhel8:latest
+FROM roboxes/rhel8:2.0.0
 LABEL description="creating custom httpd image"
 MAINTAINER "Sachin Kumar <sachin@networknuts.net>
 RUN yum install httpd -y && yum clean all
