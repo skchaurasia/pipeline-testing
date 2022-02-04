@@ -7,18 +7,13 @@ pipeline {
                 echo 'Hello World'
             }
         }
-        stage("pull github repository") {
-            steps {
-                sh 'git clone https://github.com/skchaurasia/nodejs-testapp.git'
-            }
-        }
         stage("docker build and docker push") {
             steps {
-                withCredentials([usernameColonPassword(credentialsId: 'dockerhubpasswd', variable: 'dockerhub')]) {
-                        sh "docker build -t skcnetworknuts/nodejstestrepo:2.2 nodejs-testapp/"
-                        sh "docker login -u skcnetworknuts -p ${dockerhub} docker.io"
-                        sh "docker push skcnetworknuts/nodejstestrepo:2.2"
-                        sh "docker rmi skcnetworknuts/nodejstestrepo:2.2"
+                withCredentials([usernamePassword(credentialsId: 'dockerhubpasswd', passwordVariable: 'pass_value', usernameVariable: 'user_name')]) {
+                        sh "docker build -t skcnetworknuts/apacheserver:1.0 pipeline-testing/"
+			sh "echo "${pass_value}| docker login -u ${user_name} --password-stdin"
+                        sh "docker push skcnetworknuts/apacheserver:1.0"
+                        sh "docker rmi skcnetworknuts/apacheserver:1.0"
                     }
             }
         }
