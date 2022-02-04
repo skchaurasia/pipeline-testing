@@ -1,4 +1,4 @@
-FROM centos:latest
+FROM centos:8
 LABEL description="creating custom httpd image"
 MAINTAINER "Sachin Kumar <sachin@networknuts.net>
 RUN yum install httpd -y && yum clean all
