@@ -1,7 +1,7 @@
 pipeline {
     agent {label 'linuxslave1'}
     parameters{
-	choice(name: 'state', choices: "start\nstop", description: 'select the state')
+	choice(name: 'State', choices: "Start\nStop", description: 'Select the State')
     }
     stages {
         stage('Hello') {
@@ -11,7 +11,7 @@ pipeline {
         }
         stage("docker build and docker push") {
 	  when {
-		expression { state == 'start' }
+		expression { State == 'Start' }
 	  }
             steps {
                 withCredentials([usernamePassword(credentialsId: 'dockerhubpasswd', passwordVariable: 'pass_value', usernameVariable: 'user_name')]) {
