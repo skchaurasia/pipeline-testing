@@ -1,7 +1,7 @@
 pipeline {
     agent {label 'linuxslave1'}
     parameters{
-	choice( name: 'state', choices: "start\nstop", description: 'select the state')
+	choice(name: 'state', choices: "start\nstop", description: 'select the state')
     }
     stages {
         stage('Hello') {
@@ -10,7 +10,7 @@ pipeline {
             }
         }
         stage("docker build and docker push") {
-	  when{
+	  when {
 		expression { state == 'start' }
 	  }
             steps {
